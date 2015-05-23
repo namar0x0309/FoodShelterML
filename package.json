@@ -1,0 +1,28 @@
+{
+  "name": "FoodShelterPredict",
+  "version": "0.0.0",
+  "description": "Food Shelter Predictor",
+  "main": "app.js",
+  "dependencies": {
+    "machine_learning": "~0.0.8",
+    "mysql": "~2.6.2",
+    "portfinder": "~0.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/namar0x0309/FoodShelterPredict.git"
+  },
+  "keywords": [
+    "machinelearning"
+  ],
+  "author": "Nassim Amar, Nevan Wichers, Bianca Flaidar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/namar0x0309/FoodShelterPredict/issues"
+  },
+  "homepage": "https://github.com/namar0x0309/FoodShelterPredict"
+}
