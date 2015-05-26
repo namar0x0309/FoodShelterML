@@ -1,3 +1,5 @@
+// Library: https://www.npmjs.com/package/machine_learning
+
  /***************************** code ***********************************/
  function logisticRegressionTest()
  {
@@ -69,6 +71,7 @@ function kMeansClusteringTest()
 	console.log("means : ", result.means);
 }
  
+ /***************************** Decision Trees ***********************************/
 function decisionTreeTest()
 {
 	// Reference : 'Programming Collective Intellignece' by Toby Segaran.
@@ -89,7 +92,9 @@ function decisionTreeTest()
 	           ['slashdot','UK','no',21],
 	           ['google','UK','yes',18],
 	           ['kiwitobes','France','yes',19]];
-	var result = ['None','Premium','Basic','Basic','Premium','None','Basic','Premium','None','None','None','None','Basic','None','Basic','Basic'];
+	var result = ['None','Premium','Basic','Basic','Premium','None',
+						    'Basic','Premium','None','None','None','None',
+						 	  'Basic','None','Basic','Basic'];
  
 	var dt = new ml.DecisionTree({
 	    data : data,
@@ -98,7 +103,7 @@ function decisionTreeTest()
  
 	dt.build();
  
-	// dt.print();
+	//dt.print();
  
 	console.log("Classify : ", dt.classify(['(direct)','USA','yes',5]));
  
