@@ -1,3 +1,4 @@
+/* global __dirname */
 var http = require('http');
 var portfinder = require('portfinder');
 var ml = require('machine_learning');
@@ -20,21 +21,12 @@ portfinder.getPort(function (err, port) {
 	http.createServer(function (req, res) {
   
 		// Response
-		res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.writeHead(200, {'Content-Type': 'text/plain'});
 	
-	  res.end('Food Shelter Predictor\n' +
-						'Getting Database....\n' +
-						'Learning...\n');
-						
-						logisticRegressionTest();
-						
-						console.log( '  \n \n \n ');
-						
-						kMeansClusteringTest();
-						
-						console.log( '\n\n\n');
-						
-						decisionTreeTest();
+	var output = decisionTreeTest();
+			
+	res.end( output );
+
 	
 	
 	}).listen( port, '127.0.0.1' );

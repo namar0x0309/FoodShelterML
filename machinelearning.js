@@ -1,4 +1,6 @@
-// Library: https://www.npmjs.com/package/machine_learning
+/* Library: https://www.npmjs.com/package/machine_learning
+   Documentation: http://joonku.com/project/machine_learning/apidoc
+*/
 
  /***************************** code ***********************************/
  function logisticRegressionTest()
@@ -75,7 +77,6 @@ function kMeansClusteringTest()
 function decisionTreeTest()
 {
 	// Reference : 'Programming Collective Intellignece' by Toby Segaran.
-  
 	var data =[['slashdot','USA','yes',18],
 	           ['google','France','yes',23],
 	           ['digg','USA','yes',24],
@@ -92,6 +93,7 @@ function decisionTreeTest()
 	           ['slashdot','UK','no',21],
 	           ['google','UK','yes',18],
 	           ['kiwitobes','France','yes',19]];
+			   
 	var result = ['None','Premium','Basic','Basic','Premium','None',
 						    'Basic','Premium','None','None','None','None',
 						 	  'Basic','None','Basic','Basic'];
@@ -105,9 +107,16 @@ function decisionTreeTest()
  
 	//dt.print();
  
-	console.log("Classify : ", dt.classify(['(direct)','USA','yes',5]));
+ 	var output = ("Classify : " + JSON.stringify( dt.classify(['(direct)','USA','yes',5]) ) );
+	console.log( "\nDecision Tree:" );
+	console.log( "Classify : ", dt.classify(['(direct)','USA','yes',5])  );
  
-	dt.prune(1.0); // 1.0 : mingain.
+ 	var dtSerialized = JSON.stringify( dt );
+ 	var dtCopy = JSON.parse( dtSerialized );
+	 
+	//dt.prune(1.0); // 1.0 : mingain.
 	dt.print();
+	//dtCopy.print();
 	
+	return output.toString();
 }
