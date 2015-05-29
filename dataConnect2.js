@@ -25,6 +25,7 @@ exports.world = function(dataQuery, resultQuery, mlFunction){
                 mlData.push(rowData);
             });
 
+            //Get the data about the results
             connection.query(resultQuery, [mlData, mlFunction], function(err, rows, fields) {
                 if (!err){
                     var result = [];
@@ -36,6 +37,7 @@ exports.world = function(dataQuery, resultQuery, mlFunction){
                     console.log(mlData); 
                     console.log(result);
 
+                    // run the machine learning function
                     mlFunction(mlData, result);
                 } 
                 else{
