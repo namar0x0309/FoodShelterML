@@ -111,12 +111,27 @@ function decisionTreeTest()
 	console.log( "\nDecision Tree:" );
 	console.log( "Classify : ", dt.classify(['(direct)','USA','yes',5])  );
  
- 	var dtSerialized = JSON.stringify( dt );
- 	var dtCopy = JSON.parse( dtSerialized );
-	 
 	//dt.prune(1.0); // 1.0 : mingain.
-	dt.print();
-	//dtCopy.print();
+	console.log( dt );
+
+
 	
 	return output.toString();
 }
+
+function decisionTreeStringify( dt )
+{
+	var dtSerializedTree = JSON.stringify( dt.tree );
+}
+
+function decisionTreeParse( str )
+{
+	var dtCopyTree = JSON.parse( str );
+	var dtCopy = new ml.DecisionTree( {
+		data: data,
+		result: result
+	} );
+	dtCopy.tree = dtCopyTree;
+	console.log( dtCopy );
+}
+
