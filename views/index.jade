@@ -2,8 +2,14 @@ doctype html
 html
     head
         title= title
-        link(rel="stylesheet", href="bootstrap.min.css")
+        link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
     body
         div.container
-            p Hello         
-            block content
+            div.jumbotron
+                p
+                    a(class="btn btn-default btn-lg btn-block", href="/donor") Donors
+                p
+                    a(class="btn btn-default btn-lg btn-block", href="/shelter") Shelters
+                p
+                    a(class="btn btn-default btn-lg btn-block", href="/household") Households
+            
