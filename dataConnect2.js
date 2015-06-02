@@ -1,6 +1,6 @@
 // Runs the mlFunciton with the data from the dataQuery and resultQuery.
-exports.world = function(dataQuery, resultQuery, mlFunction){
-    var mysql      = require('mysql');
+function queryDB(mysql, dataQuery, resultQuery, mlFunction){
+
     var connection = mysql.createConnection({
           host     : 'sql4.freemysqlhosting.net',
           user     : 'sql478053',
@@ -53,31 +53,40 @@ exports.world = function(dataQuery, resultQuery, mlFunction){
 
 }
 
-var ml = require('machine_learning');
-
-var mlFunct = function(mlData, resultData){
+function foodShelterPredictor(mysql)
+{
+    //var ml = require('machine_learning');
     
-    // TODO: Normalize characters to match 'F'!='f' (upper case doofus)
-    //for( var i = 0; len(mlData))
-	var dt = new ml.DecisionTree({
-	    data : mlData,
-	    result : resultData
-	});
- 
-	dt.build();
- 
-	//dt.print();
-    //dt.prune(1.0); // 1.0 : mingain.
+    var mlFunct = function(mlData, resultData){
         
-    console.log( "Classify : ", dt.classify( ['f',4,0] )  );
+        // TODO: Normalize characters to match 'F'!='f' (upper case doofus)
+        //for( var i = 0; len(mlData))
+    	var dt = new ml.DecisionTree({
+    	    data : mlData,
+    	    result : resultData
+    	});
+     
+    	dt.build();
+     
+    	//dt.print();
+        //dt.prune(1.0); // 1.0 : mingain.
+            
+        console.log( "Classify : ", dt.classify( ['Tue Jan 17 2012 00:00:00 GMT-0800 (PST)', 80] )  );
+    }
+    
+    //
+    //exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5',
+    //              'select Age from HouseholdMembers limit 5',
+    //               mlFunct); 
+    
+    /*
+    SELECT * FROM sql478053.FoodDonations;
+     */
+     
+     // Data: Month, Pounds
+     // Test: DonorID
+    queryDB(mysql, 'SELECT TrxDate, Pounds FROM sql478053.FoodDonations order by TrxID limit 25',
+                  'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25',
+                   mlFunct); 
 }
 
-//
-//exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5',
-//              'select Age from HouseholdMembers limit 5',
-//               mlFunct); 
-
-
-exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5',
-              'select Age from HouseholdMembers limit 5',
-               mlFunct); 

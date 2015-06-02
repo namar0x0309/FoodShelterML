@@ -1,6 +1,8 @@
 var http = require('http');
 var portfinder = require('portfinder');
 var ml = require('machine_learning');
+var mysql      = require('mysql');
+
 
 // Code to include external javascript files.
 var fs = require('fs');
@@ -13,6 +15,7 @@ var includeInThisContext = function(path) {
 
 // Include javascript files.
 includeInThisContext(__dirname + "/machinelearning.js");
+includeInThisContext(__dirname + "/dataConnect2.js");
 
 // frontend
 var jade = require('jade');
@@ -25,16 +28,14 @@ app.set('view engine', 'jade');
 portfinder.getPort(function (err, port) {
 	console.log( 'Port open:' + port);
 	   
-    // // // learning
-    logisticRegressionTest();
-                            
+    // // // learning       
     console.log( '  \n \n \n ');
-                            
-    kMeansClusteringTest();
-                            
+                           
+    foodShelterPredictor(mysql);               
+
     console.log( '\n\n\n');
                             
-    decisionTreeTest();
+
     
     // // //
 	        
