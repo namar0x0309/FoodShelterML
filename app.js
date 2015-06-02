@@ -13,10 +13,6 @@ var includeInThisContext = function(path) {
     vm.runInThisContext(code, path);
 }.bind(this);
 
-// Include javascript files.
-includeInThisContext(__dirname + "/machinelearning.js");
-includeInThisContext(__dirname + "/dataConnect2.js");
-
 // frontend
 var jade = require('jade');
 var express = require('express');
@@ -25,13 +21,25 @@ var app = express();
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
+
+var decisionTree = null;
+
+
+
+/**************************** Code start After This Line********************************* */
+// Include javascript files.
+includeInThisContext(__dirname + "/machinelearning.js");
+includeInThisContext(__dirname + "/dataConnect2.js");
+
 portfinder.getPort(function (err, port) {
 	console.log( 'Port open:' + port);
 	   
     // // // learning       
     console.log( '  \n \n \n ');
                            
-    foodShelterPredictor(mysql);               
+    getDataAndBuildDecisionTree( mysql, 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 25',
+                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25', 
+                                         foodShelterPredictor );               
 
     console.log( '\n\n\n');
                             

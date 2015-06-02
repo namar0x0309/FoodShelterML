@@ -34,8 +34,8 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
                         var val = row[Object.keys(row)[0]]; 
                         result.push(val);
                     });
-                    console.log(mlData); 
-                    console.log(result);
+                    //console.log(mlData); 
+                    //console.log(result);
 
                     // run the machine learning function
                     mlFunction(mlData, result);
@@ -53,14 +53,31 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
 
 }
 
-function foodShelterPredictor(mysql)
+function foodShelterPredictor()
+{
+    console.log( "Classify : ", decisionTree.classify( ["Mar"] )  );
+}
+
+
+function getDataAndBuildDecisionTree(mysql, queryResultData, queryTestData, callback )
 {
     //var ml = require('machine_learning');
-    
+
     var mlFunct = function(mlData, resultData){
         
-        // TODO: Normalize characters to match 'F'!='f' (upper case doofus)
-        //for( var i = 0; len(mlData))
+        // Formatting of data  
+        for(i = 0; i < mlData.length; ++i )
+        {
+           var month = mlData[i].toString();
+           month = month.slice(4,7);
+
+           mlData[i] = [month]; 
+        }
+        
+        console.log( mlData );
+        console.log(resultData);
+        
+        
     	var dt = new ml.DecisionTree({
     	    data : mlData,
     	    result : resultData
@@ -71,7 +88,10 @@ function foodShelterPredictor(mysql)
     	//dt.print();
         //dt.prune(1.0); // 1.0 : mingain.
             
-        console.log( "Classify : ", dt.classify( ['Tue Jan 17 2012 00:00:00 GMT-0800 (PST)', 80] )  );
+        decisionTree = dt;
+        
+        if( callback != null )
+            	callback();
     }
     
     //
@@ -85,8 +105,7 @@ function foodShelterPredictor(mysql)
      
      // Data: Month, Pounds
      // Test: DonorID
-    queryDB(mysql, 'SELECT TrxDate, Pounds FROM sql478053.FoodDonations order by TrxID limit 25',
-                  'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25',
+    queryDB(mysql, queryResultData, queryTestData,
                    mlFunct); 
 }
 
