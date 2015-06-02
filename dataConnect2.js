@@ -56,6 +56,9 @@ exports.world = function(dataQuery, resultQuery, mlFunction){
 var ml = require('machine_learning');
 
 var mlFunct = function(mlData, resultData){
+    
+    // TODO: Normalize characters to match 'F'!='f' (upper case doofus)
+    //for( var i = 0; len(mlData))
 	var dt = new ml.DecisionTree({
 	    data : mlData,
 	    result : resultData
@@ -63,8 +66,18 @@ var mlFunct = function(mlData, resultData){
  
 	dt.build();
  
-	dt.print();
+	//dt.print();
+    //dt.prune(1.0); // 1.0 : mingain.
+        
+    console.log( "Classify : ", dt.classify( ['f',4,0] )  );
 }
 
+//
+//exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5',
+//              'select Age from HouseholdMembers limit 5',
+//               mlFunct); 
 
-exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5', 'select Age from HouseholdMembers limit 5', mlFunct); 
+
+exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5',
+              'select Age from HouseholdMembers limit 5',
+               mlFunct); 
