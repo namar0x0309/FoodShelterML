@@ -78,11 +78,14 @@ function foodShelterPredictor()
 //        console.log(predict);
     });
 
-    //console.log( "Classify : ", decisionTree.classify( ["Mar"] )  );
+    //console.log( "Classify : ", decisionTree.classify( ["Mar"] ) 
+	return data; 
+);
 }
 
 
-function getDataAndBuildDecisionTree(queryResultData, queryTestData, callback )
+function getDataAndBuildDecisionTree(queryResultData,
+                                     queryTestData, callback, callbackRender )
 {
     //var ml = require('machine_learning');
 
@@ -103,7 +106,6 @@ function getDataAndBuildDecisionTree(queryResultData, queryTestData, callback )
     	    data : mlData,
     	    result : resultData
     	});
-
      
     	dt.build();
      
@@ -113,8 +115,12 @@ function getDataAndBuildDecisionTree(queryResultData, queryTestData, callback )
         decisionTree = dt;
         console.log(decisionData );
         
+        var data = null;
         if( callback != null )
-            	callback();
+            data = callback();
+                
+        if( callbackRender != null )
+            callbackRender( data );
     }
     
     //

@@ -3,11 +3,28 @@ html
     head
         title= title
         link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+        
     body
+        script(type='text/javascript').
+            function something() {
+                console.log("Inappropriate Value"); 
+                }
         div.container
             div(class="panel panel-default")
                 div(class="panel-heading") 
                     h1 Shelters
                 div(class="panel-body")
+                    ul
+                        each val in months
+                            li= val[0]
                     p Content
+                        p month
+                        p #{months}
+                        script(type='text/javascript').
+                            something();
+
+
+
+                 
+
             
