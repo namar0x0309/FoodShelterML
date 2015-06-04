@@ -83,11 +83,6 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
     //connection.end();
 
 }
-/*
-function getUniqueFromAr(ar){
-    ar.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
-    return ar;
-}*/
 
 Array.prototype.contains = function(v) {
     for(var i = 0; i < this.length; i++) {
@@ -166,15 +161,6 @@ function getDataAndBuildDecisionTree(queryResultData,
         if( callbackRender != null )
             callbackRender( data );
     }
-    
-    //
-    //exports.world('select Sex, AgeGroup, WorksInArea from HouseholdMembers limit 5',
-    //              'select Age from HouseholdMembers limit 5',
-    //               mlFunct); 
-    
-    /*
-    SELECT * FROM sql478053.FoodDonations;
-     */
      
      // Data: Month, Pounds
      // Test: DonorID
@@ -188,11 +174,11 @@ portfinder.getPort(function (err, port) {
 	   
     // // // learning       
     console.log( '  \n \n \n ');
-                           
+    /*                       
     getDataAndBuildDecisionTree( 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 20',
                                  'SELECT Name FROM FoodDonations left outer join Donors on FoodDonations.DonorID = Donors.ID order by TrxID limit 20',
                                          foodShelterPredictor );               
-
+*/
     // Views
 
     
@@ -238,7 +224,7 @@ portfinder.getPort(function (err, port) {
             });
         }
         getDataAndBuildDecisionTree( 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 25',
-                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25',
+                                 'SELECT Name FROM FoodDonations left outer join Donors on FoodDonations.DonorID = Donors.ID order by TrxID limit 20',
                                          foodShelterPredictor, pageRenderShelter );
     });
     
