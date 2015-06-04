@@ -1,8 +1,8 @@
 var http = require('http');
 var portfinder = require('portfinder');
 var ml = require('machine_learning');
-var mysql      = require('mysql');
-
+mysql      = require('mysql');
+deepcopy = require('deepcopy');
 
 // Code to include external javascript files.
 var fs = require('fs');
@@ -23,6 +23,7 @@ app.set('view engine', 'jade');
 
 
 var decisionTree = null;
+var decisionData = null;
 
 
 
@@ -37,12 +38,11 @@ portfinder.getPort(function (err, port) {
     // // // learning       
     console.log( '  \n \n \n ');
                            
-    getDataAndBuildDecisionTree( mysql, 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 25',
-                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25', 
+    getDataAndBuildDecisionTree( 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 20',
+                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 20', 
                                          foodShelterPredictor );               
 
     console.log( '\n\n\n');
-                            
 
     
     // // //

@@ -53,13 +53,36 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
 
 }
 
+function getUniqueFromAr(ar){
+    ar.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
+    return ar;
+}
+
 function foodShelterPredictor()
 {
-    console.log( "Classify : ", decisionTree.classify( ["Mar"] )  );
+    // Convert to single value, instead of array
+    console.log(decisionData);
+    formatData = [];
+    for(var i =0; i < decisionData.length; i++) {
+        console.log(decisionData[i]);
+        formatData.push(decisionData[i][0]);
+    }
+
+    console.log(formatData);
+    months = getUniqueFromAr(formatData); 
+    console.log(months);
+
+    predeictions = [];
+    Object.keys(months).forEach(function(month) {
+        predict = [month, decisionTree.classify([month])];
+//        console.log(predict);
+    });
+
+    //console.log( "Classify : ", decisionTree.classify( ["Mar"] )  );
 }
 
 
-function getDataAndBuildDecisionTree(mysql, queryResultData, queryTestData, callback )
+function getDataAndBuildDecisionTree(queryResultData, queryTestData, callback )
 {
     //var ml = require('machine_learning');
 
@@ -74,14 +97,13 @@ function getDataAndBuildDecisionTree(mysql, queryResultData, queryTestData, call
            mlData[i] = [month]; 
         }
         
-        console.log( mlData );
-        console.log(resultData);
-        
+        decisionData = deepcopy(mlData);
         
     	var dt = new ml.DecisionTree({
     	    data : mlData,
     	    result : resultData
     	});
+
      
     	dt.build();
      
@@ -89,6 +111,7 @@ function getDataAndBuildDecisionTree(mysql, queryResultData, queryTestData, call
         //dt.prune(1.0); // 1.0 : mingain.
             
         decisionTree = dt;
+        console.log(decisionData );
         
         if( callback != null )
             	callback();
