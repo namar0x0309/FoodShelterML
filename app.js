@@ -33,45 +33,52 @@ includeInThisContext(__dirname + "/dataConnect2.js");
 
 portfinder.getPort(function (err, port) {
 	console.log( 'Port open:' + port);
-	   
-    // // // learning       
-    console.log( '  \n \n \n ');
-                           
-    getDataAndBuildDecisionTree( mysql, 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 25',
-                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25', 
-                                         foodShelterPredictor );               
 
-    console.log( '\n\n\n');
-                            
+    // Views
 
-    
-    // // //
-	        
     app.get('/', function(req, res) {
         res.render('index', {
-        title: 'Home' 
+        title: 'Home'
         });
     });
-    
+
     app.get('/donor', function(req, res) {
         res.render('donor', {
-            title: 'Donor' 
+            title: 'Donor'
        });
     });
-    
+
     app.get('/household', function(req, res) {
         res.render('household', {
-            title: 'Household' 
+            title: 'Household'
        });
     });
-    
+
     app.get('/shelter', function(req, res) {
-        res.render('shelter', {
-            title: 'Shelter'
-        });
+
+        pageRenderShelter = function( data )
+        {
+            console.log( data)
+            
+            /*
+                Get Data and cross refrence  
+                SELECT ID, Name FROM sql478053.Donors;
+                
+                {"9":1,"11":6,"12":7,"15":3}
+
+                cross with these. 
+            */
+            
+             // Page generation
+            res.render('shelter', {
+                title: 'Shelter',
+                months: JSON.stringify(data)
+            });
+        }
+        getDataAndBuildDecisionTree( mysql, 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 25',
+                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 25',
+                                         foodShelterPredictor, pageRenderShelter );
     });
-    
+
     app.listen(8000);
  });
- 
- 

@@ -55,11 +55,14 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
 
 function foodShelterPredictor()
 {
-    console.log( "Classify : ", decisionTree.classify( ["Mar"] )  );
+    var data =  decisionTree.classify( ["Mar"] );
+    console.log( "Classify : ", data );
+    return data;
 }
 
 
-function getDataAndBuildDecisionTree(mysql, queryResultData, queryTestData, callback )
+function getDataAndBuildDecisionTree(mysql, queryResultData,
+                                     queryTestData, callback, callbackRender )
 {
     //var ml = require('machine_learning');
 
@@ -90,8 +93,12 @@ function getDataAndBuildDecisionTree(mysql, queryResultData, queryTestData, call
             
         decisionTree = dt;
         
+        var data = null;
         if( callback != null )
-            	callback();
+            data = callback();
+                
+        if( callbackRender != null )
+            callbackRender( data );
     }
     
     //
