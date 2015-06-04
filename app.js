@@ -67,8 +67,6 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
                         var val = row[Object.keys(row)[0]]; 
                         result.push(val);
                     });
-                    //console.log(mlData); 
-                    //console.log(result);
 
                     // run the machine learning function
                     mlFunction(mlData, result);
@@ -85,35 +83,50 @@ function queryDB(mysql, dataQuery, resultQuery, mlFunction){
     //connection.end();
 
 }
-
+/*
 function getUniqueFromAr(ar){
     ar.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
     return ar;
+}*/
+
+Array.prototype.contains = function(v) {
+    for(var i = 0; i < this.length; i++) {
+        if(this[i] === v) return true;
+    }
+    return false;
+};
+
+Array.prototype.unique = function() {
+    var arr = [];
+    for(var i = 0; i < this.length; i++) {
+        if(!arr.contains(this[i])) {
+            arr.push(this[i]);
+        }
+    }
+    return arr; 
 }
 
 function foodShelterPredictor()
 {
     // Convert to single value, instead of array
-    console.log(decisionData);
-    formatData = [];
+    var formatData = [];
     for(var i =0; i < decisionData.length; i++) {
-        console.log(decisionData[i]);
         formatData.push(decisionData[i][0]);
     }
 
-    console.log(formatData);
-    months = getUniqueFromAr(formatData); 
-    console.log(months);
+    var months = formatData.unique(); 
 
-    predeictions = [];
-    Object.keys(months).forEach(function(month) {
-        predict = [month, decisionTree.classify([month])];
-//        console.log(predict);
-    });
+    var predictions = [];
+    for(var i =0; i < months.length; i++) {
+        var month = months[i];
+        var predict = [month, decisionTree.classify([month])];
+        predictions.push(predict);
+    }
 
-    //console.log( "Classify : ", decisionTree.classify( ["Mar"] ) 
-	//return data; 
+    console.log(predictions);
+	return predictions; 
 }
+
 
 
 function getDataAndBuildDecisionTree(queryResultData,
@@ -145,7 +158,6 @@ function getDataAndBuildDecisionTree(queryResultData,
         //dt.prune(1.0); // 1.0 : mingain.
             
         decisionTree = dt;
-        console.log(decisionData );
         
         var data = null;
         if( callback != null )
@@ -178,7 +190,7 @@ portfinder.getPort(function (err, port) {
     console.log( '  \n \n \n ');
                            
     getDataAndBuildDecisionTree( 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 20',
-                                        'SELECT DonorID FROM sql478053.FoodDonations order by TrxID limit 20', 
+                                 'SELECT Name FROM FoodDonations left outer join Donors on FoodDonations.DonorID = Donors.ID order by TrxID limit 20',
                                          foodShelterPredictor );               
 
     // Views
