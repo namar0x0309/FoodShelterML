@@ -1,5 +1,7 @@
 # FoodShelterPredict
-
+Using publicly available food shelter data, we can
+use and run machine learning to help food shelters
+predict availability of food donations.
 
 #Running
 > hotnode app.js 
