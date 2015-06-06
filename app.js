@@ -149,6 +149,7 @@ function getDataAndBuildDecisionTree(queryResultData,
     	dt.build();
      
     	//dt.print();
+        console.log( "\nTree Depth:" + dt.getDepth() );
         //dt.prune(1.0); // 1.0 : mingain.
             
         decisionTree = dt;
@@ -236,8 +237,8 @@ portfinder.getPort(function (err, port) {
         }
         
         
-        getDataAndBuildDecisionTree( 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 1000',
-                                     'SELECT Name FROM FoodDonations left outer join Donors on FoodDonations.DonorID = Donors.ID order by TrxID limit 1000',
+        getDataAndBuildDecisionTree( 'SELECT TrxDate FROM sql478053.FoodDonations order by TrxID limit 20000',
+                                     'SELECT Name FROM FoodDonations left outer join Donors on FoodDonations.DonorID = Donors.ID order by TrxID limit 20000',
                                          foodShelterPredictor, pageRenderShelter );
     });
     

@@ -21,6 +21,12 @@
 			// Environment variables passed to the program.
 			"env": { }
 		}, 
+        {
+            "name": "Launch server on port",
+            "type": "node",
+            "program": "src/server/server.js",
+            "args": ["--port=8080"]
+        },
 		{
 			"name": "Attach",
 			"type": "node",
