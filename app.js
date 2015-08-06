@@ -35,10 +35,10 @@ var decisionData = null;
 function queryDB(mysql, dataQuery, resultQuery, mlFunction){
 
     var connection = mysql.createConnection({
-          host     : 'sql4.freemysqlhosting.net',
-          user     : 'sql478053',
-          password : 'lM3*bZ2%',
-          database : 'sql478053'
+          host     : 'address.to.sql.server',
+          user     : 'username',
+          password : 'password',
+          database : 'databaseName'
     });
 
     connection.connect();
